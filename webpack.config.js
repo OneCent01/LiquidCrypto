@@ -1,4 +1,5 @@
 const path = require('path');
+
 const serverConfig = {
   target: 'node',
   entry: './src/LiquidCrypto-n.js',
