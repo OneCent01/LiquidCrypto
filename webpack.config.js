@@ -4,7 +4,9 @@ const serverConfig = {
   entry: './src/LiquidCrypto-n.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'LiquidCrypto-n.js'
+    filename: 'LiquidCrypto-n.js',
+    library: '',
+    libraryTarget: 'commonjs'
   }
 };
 

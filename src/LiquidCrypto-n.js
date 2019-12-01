@@ -58,7 +58,7 @@ const LiquidCrypto = (keypair) => {
 	}
 }
 
-module.exports = {LiquidCrypto}
+module.exports = LiquidCrypto
 
 
 // EXAMPLE USAGE: COMMUNICATION BETWEEN SERVERS
