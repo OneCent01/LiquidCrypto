@@ -66,7 +66,7 @@ const LiquidCrypto = async (keypair) => {
 }
 
 // might not be necessary, LiquidCrypto probably remains in the window scope after execution
-// window.LiquidCrypto = LiquidCrypto
+window.LiquidCrypto = LiquidCrypto
 
 /*
 // EXAMPLE USAGE: COMMUNICATION BETWEEN SERVERS
