@@ -1,6 +1,6 @@
 const crypto = require('crypto')
 
-const LiquidCrypto = (keypair) => {
+const LiquidCrypto = (options={}) => {
 
 	// private method for creating an asymmetric keypair object,
 	// generating its keys, and returning a reference to the object
@@ -13,7 +13,7 @@ const LiquidCrypto = (keypair) => {
 	// state used to track internal variables
 	const liquidState = {
 		// keypair associated with this crypto wrapper
-		keypair: keypair || generateKeys()
+		keypair: options.keypair || generateKeys()
 	}
 
 	// outputs a 32 byte (256 bits) buffer object
@@ -52,6 +52,7 @@ const LiquidCrypto = (keypair) => {
 
 	return {
 		publicKey: liquidState.keypair.getPublicKey(),
+		keypair: liquidState.keypair,
 		deriveKey,
 		encrypt,
 		decrypt
@@ -59,32 +60,3 @@ const LiquidCrypto = (keypair) => {
 }
 
 module.exports = {LiquidCrypto}
-
-
-// EXAMPLE USAGE: COMMUNICATION BETWEEN SERVERS
-// const init = async () => {
-
-// 	// instantiate keypairs
-// 	const liquidCrypto = LiquidCrypto(/*SEED KEYPAIR*/)
-// 	const liquidCrypto2 = LiquidCrypto()
-
-// 	// derive symmetric encryption key
-// 	const secretKey2 = await liquidCrypto2.deriveKey(liquidCrypto.publicKey)
-
-// 	const secret = 'secret data'
-
-// 	console.log('secret: ', secret)
-
-// 	const encodedSecret = liquidCrypto2.encrypt(secret, secretKey2)
-
-// 	console.log('encrypted secret: ', encodedSecret)
-
-// 	const secretKey = await liquidCrypto.deriveKey(liquidCrypto2.publicKey)
-
-// 	const decodedSecret = liquidCrypto.decrypt(encodedSecret, secretKey)
-
-// 	console.log('decodedSecret: ', decodedSecret)
-// }
-
-// init()
-

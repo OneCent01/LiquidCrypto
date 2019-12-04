@@ -1,28 +1,21 @@
-const LiquidCrypto = require('LiquidCrypto').LiquidCrypto
+const { LiquidCrypto } = require('LiquidCrypto')
 
-// EXAMPLE USAGE: COMMUNICATION BETWEEN SERVERS
 const init = async () => {
 
-	// instantiate keypairs
-	const liquidCrypto = LiquidCrypto(/*SEED KEYPAIR*/)
-	const liquidCrypto2 = LiquidCrypto()
+    // generating a new keypair: 
+    const liquidKeypair = LiquidCrypto()/*<-- SENDER*/
+    const liquidKeypair2 = LiquidCrypto()/*<-- RECEIVER*/
 
-	// derive symmetric encryption key
-	const secretKey2 = await liquidCrypto2.deriveKey(liquidCrypto.publicKey)
+    // derive symmetric encryption key
+    const secretKey = await liquidKeypair.deriveKey(liquidKeypair2.publicKey)
 
-	const secret = 'secret data'
+    const encodedSecret = liquidKeypair.encrypt('secret data', secretKey)
 
-	console.log('secret: ', secret)
+    const secretKey2 = await liquidKeypair.deriveKey(liquidKeypair2.publicKey)
 
-	const encodedSecret = liquidCrypto2.encrypt(secret, secretKey2)
+    const decodedSecret = liquidKeypair.decrypt(encodedSecret, secretKey2)
 
-	console.log('encrypted secret: ', encodedSecret)
-
-	const secretKey = await liquidCrypto.deriveKey(liquidCrypto2.publicKey)
-
-	const decodedSecret = liquidCrypto.decrypt(encodedSecret, secretKey)
-
-	console.log('decodedSecret: ', decodedSecret)
+    console.log('decrypted secret: ', decodedSecret)
 }
 
 init()
