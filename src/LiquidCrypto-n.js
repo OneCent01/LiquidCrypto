@@ -47,7 +47,7 @@ const LiquidCrypto = (options={}) => {
 			iv
 		)
 		let decrypted = decipher.update(encryptedData, 'hex', 'utf8')
-		decrypted += decipher.final('hex')
+		decrypted += decipher.final('utf8')
 		return 
 	}	
 
